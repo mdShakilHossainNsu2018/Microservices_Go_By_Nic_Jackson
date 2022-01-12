@@ -1,0 +1,3 @@
+module github.com/mdShakilHossainNsu2018/Building_Microservices_with_Go_By_Nic_Jackson_
+
+go 1.17
