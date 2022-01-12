@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Building Microservices with Go By Nic Jackson .iml" filepath="$PROJECT_DIR$/.idea/Building Microservices with Go By Nic Jackson .iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Microservices_Go_By_Nic_Jackson/.idea/Microservices_Go_By_Nic_Jackson.iml" filepath="$PROJECT_DIR$/../Microservices_Go_By_Nic_Jackson/.idea/Microservices_Go_By_Nic_Jackson.iml" />
     </modules>
   </component>
 </project>

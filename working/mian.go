@@ -1,27 +1,18 @@
 package main
 
 import (
-	"fmt"
-	"io/ioutil"
+	"github.com/mdShakilHossainNsu2018/Microservices_Go_By_Nic_Jackson/working/handlers"
 	"log"
 	"net/http"
+	"os"
 )
 
 func main() {
-	http.HandleFunc("/", func(writer http.ResponseWriter, request *http.Request) {
-		log.Println("Hello world")
-		d, err := ioutil.ReadAll(request.Body)
+	l := log.New(os.Stdout, "product-api", log.Lshortfile)
+	hh := handlers.NewHello(l)
 
-		if err != nil {
-			http.Error(writer, "Opps!", http.StatusBadRequest)
-			return
-		}
-		fmt.Fprintf(writer, "Hello %s\n", d)
-	})
+	sm := http.NewServeMux()
+	sm.Handle("/", hh)
 
-	http.HandleFunc("/goodbye", func(writer http.ResponseWriter, request *http.Request) {
-		log.Println("Good bye")
-	})
-
-	http.ListenAndServe(":9090", nil)
+	http.ListenAndServe(":9090", sm)
 }
