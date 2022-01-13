@@ -77,20 +77,20 @@ func (p *Products) addProduct(writer http.ResponseWriter, request *http.Request)
 	if err != nil {
 		http.Error(writer, "Unable to unmarshal", http.StatusBadRequest)
 	}
-	data.AddProduct(*prod)
+	data.AddProduct(prod)
 	p.l.Printf("Prod: %v", prod)
 }
 
 func (p *Products) updateProduct(id int, writer http.ResponseWriter, request *http.Request) {
 	p.l.Println("Update product called")
-	prod := &data.Product{}
+	prod := data.Product{}
 	err := prod.FromJSON(request.Body)
 
 	if err != nil {
 		http.Error(writer, "Unable to unmarshal", http.StatusBadRequest)
 	}
 
-	err2 := prod.UpdateProduct(id, prod)
+	err2 := data.UpdateProduct(id, &prod)
 	if err2 == data.ErrProductNotFound {
 		http.Error(writer, "Not found", http.StatusNotFound)
 	}
