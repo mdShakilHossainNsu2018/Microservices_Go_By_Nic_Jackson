@@ -12,13 +12,13 @@ import (
 
 func main() {
 	l := log.New(os.Stdout, "product-api: ", log.Lshortfile)
-	hh := handlers.NewHello(l)
+	//hh := handlers.NewHello(l)
 	ph := handlers.NewProducts(l)
 	gh := handlers.NewGoodBye(l)
 	sm := http.NewServeMux()
 
-	sm.Handle("/", hh)
-	sm.Handle("/products", ph)
+	sm.Handle("/", ph)
+	//sm.Handle("/products", ph)
 	sm.Handle("/goodbye", gh)
 
 	s := &http.Server{Addr: ":9090", Handler: sm, IdleTimeout: 120 * time.Second, ReadTimeout: 1 * time.Second, WriteTimeout: 1 * time.Second}
