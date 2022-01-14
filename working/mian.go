@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"github.com/gorilla/mux"
 	"github.com/mdShakilHossainNsu2018/Microservices_Go_By_Nic_Jackson/working/handlers"
 	"log"
 	"net/http"
@@ -15,9 +16,20 @@ func main() {
 	//hh := handlers.NewHello(l)
 	ph := handlers.NewProducts(l)
 	gh := handlers.NewGoodBye(l)
-	sm := http.NewServeMux()
+	sm := mux.NewRouter()
 
-	sm.Handle("/", ph)
+	getRouter := sm.Methods(http.MethodGet).Subrouter()
+	getRouter.HandleFunc("/", ph.GetProducts)
+
+	putRouter := sm.Methods(http.MethodPut).Subrouter()
+	putRouter.HandleFunc("/{id:[0-9]+}", ph.UpdateProduct)
+
+	putRouter.Use(ph.MiddlewareProduct)
+
+	postRouter := sm.Methods(http.MethodPost).Subrouter()
+	postRouter.HandleFunc("/", ph.AddProduct)
+	postRouter.Use(ph.MiddlewareProduct)
+	//sm.Handle("/", ph)
 	//sm.Handle("/products", ph)
 	sm.Handle("/goodbye", gh)
 
